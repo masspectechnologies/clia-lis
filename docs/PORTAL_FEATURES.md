@@ -1,26 +1,57 @@
-# Patient and Lab Order Portal Features
+# Portal Feature Specification
 
-## Patient Information Input Forms
-- Easy-to-use forms for entering patient details, including demographics, contact information, and insurance information.
+## Patient Information Portal
+### Demographic Input
+- Name
+- Date of Birth
+- Gender
+- Contact Information
 
-## Medical History Management
-- Comprehensive management of patient medical histories, allowing for easy updates by patients and healthcare providers.
+### Medical History
+- Previous conditions
+- Surgeries
+- Family medical history
 
-## CPT Code Selection
-- Streamlined process for selecting appropriate CPT (Current Procedural Terminology) codes based on lab orders, ensuring accurate billing and coding.
 
-## ICD-10 Code Selection
-- Integrated ICD-10 (International Classification of Diseases) code selection tailored to patient diagnoses to support accurate healthcare documentation.
+## Medical Information Management
+### Allergies
+- Input field for allergies
+- Dropdown for known allergens
 
-## Patient Source Tracking (Private vs Hospital)
-- Feature to track the source of patients by categorizing them as private or hospital referrals, enhancing data analytics and reporting.
+### Medications
+- Current medication list
+- Dosage information
 
-## Ordering Physician Assignment
-- Mechanism for assigning ordering physicians to lab requests, facilitating clear accountability and communication.
+### Conditions
+- List of current conditions
 
-## HIPAA-Compliant Workflows
-- Ensures all features are designed to be HIPAA-compliant, safeguarding patient information and maintaining confidentiality throughout the portal process. 
 
----
+## CPT Code Input
+- Input field for CPT codes
+- Validation rules for formats
+- Lookup functionality to retrieve descriptions
 
-This document outlines the major features of the Patient and Lab Order Portal, aimed at improving patient engagement and lab data management while ensuring compliance with regulatory standards.
+
+## ICD-10 Code Input
+- Input field for ICD-10 codes
+- Validation rules for correct codes
+
+
+## Source Tracking
+- Differentiate between private patients and hospital patients
+- Input for source of referral
+
+
+## Ordering Physician Management
+- Maintain a list of ordering physicians
+- Input fields for contact information
+
+
+## Lab Order Creation Workflow
+- Steps to submit lab orders
+- Confirmation of order receipt
+
+
+## Form Validation Rules
+- Mandatory fields
+- Format validation for codes and contact information
