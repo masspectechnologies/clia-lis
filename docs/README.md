@@ -1,0 +1,2 @@
+# Documentation
+This directory contains documentation related to the project.
