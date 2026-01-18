@@ -1,49 +1,15 @@
-// server.js
 const express = require('express');
-const helmet = require('helmet');
 const cors = require('cors');
-const { Pool } = require('pg'); // import PostgreSQL client
-
+const dotenv = require('dotenv');
+const helmet = require('helmet');
+dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middleware
-app.use(helmet()); // Security middleware
-app.use(cors()); // Enable CORS
-app.use(express.json()); // Parse JSON bodies
-
-// PostgreSQL connection
-const pool = new Pool({
-  user: 'your_db_user',
-  host: 'localhost',
-  database: 'your_db_name',
-  password: 'your_db_password',
-  port: 5432,
+app.use(helmet());
+app.use(cors());
+app.use(express.json());
+app.get('/health', (req, res) => {
+  res.json({ status: 'Server is running' });
 });
-
-// Test database connection
-pool.connect()
-  .then(() => console.log('Connected to PostgreSQL database'))
-  .catch(err => console.error('Connection error', err.stack));
-
-// Authentication middleware - placeholder
-app.use((req, res, next) => {
-  // Basic authentication logic would go here
-  next();
-});
-
-// Routes would go here
-app.get('/', (req, res) => {
-  res.send('Welcome to the API');
-});
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(3000, () => {
+  console.log('CLIA LIS Backend running on port 3000');
 });
