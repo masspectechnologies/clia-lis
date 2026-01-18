@@ -1,240 +1,107 @@
-# API Endpoints Documentation
+# API Documentation
+
+## User Authentication
+
+### Endpoints
+- **POST /api/auth/login**  
+  **Request:**  
+    - Body:
+        ```json
+        { 
+            "username": "string",
+            "password": "string"
+        }
+        ```  
+  **Response:**  
+    - Success (200): 
+        ```json
+        {
+            "token": "string",
+            "expires_in": "integer"
+        }
+        ```  
+    - Error (401): 
+        ```json
+        {
+            "error": "invalid credentials"
+        }
+        ```  
+
+### HIPAA Compliance Notes
+- Ensure secure transmission via HTTPS.
+- Passwords must be hashed using bcrypt.
+
+---
 
 ## Patient Management
 
-### Create Patient
-- **Endpoint**: `POST /patients`
-- **Request Body**:
-```json
-{
-    "name": "John Doe",
-    "dob": "1990-01-01",
-    "gender": "male",
-    "contact": "1234567890"
-}
-```
-- **Response**:
-```json
-{
-    "id": "1",
-    "message": "Patient created successfully."
-}
-```
+### Endpoints
+- **GET /api/patients/{id}**  
+- **POST /api/patients**  
+- **PUT /api/patients/{id}**  
+- **DELETE /api/patients/{id}**  
 
-### Get Patient
-- **Endpoint**: `GET /patients/{id}`
-- **Response**:
-```json
-{
-    "id": "1",
-    "name": "John Doe",
-    "dob": "1990-01-01",
-    "gender": "male",
-    "contact": "1234567890"
-}
-```
+---
 
-### Update Patient
-- **Endpoint**: `PUT /patients/{id}`
-- **Request Body**:
-```json
-{
-    "contact": "0987654321"
-}
-```
-- **Response**:
-```json
-{
-    "message": "Patient updated successfully."
-}
-```
+## Medical Information Management
 
-### Delete Patient
-- **Endpoint**: `DELETE /patients/{id}`
-- **Response**:
-```json
-{
-    "message": "Patient deleted successfully."
-}
-```
+### Endpoints
+- **GET /api/medical-info/{patientId}**  
+- **POST /api/medical-info**  
+- **PUT /api/medical-info/{id}**  
+- **DELETE /api/medical-info/{id}**  
+
+---
 
 ## Lab Orders
 
-### Create Lab Order
-- **Endpoint**: `POST /lab-orders`
-- **Request Body**:
-```json
-{
-    "patient_id": "1",
-    "tests": [{ "test_code": "CPT123", "icd_code": "ICD10A" }]
-}
-```
-- **Response**:
-```json
-{
-    "id": "101",
-    "message": "Lab order created successfully."
-}
-```
+### Endpoints
+- **POST /api/lab-orders**  
+  **Request:**  
+    - Body:
+        ```json
+        {
+            "cpt_codes": ["string"],
+            "icd10_codes": ["string"],
+            "patient_id": "string"
+        }
+        ```  
+  **Response:**  
+    - Success (201):  
+        ```json
+        {
+            "order_id": "string"
+        }
+        ```  
+    - Error (400):  
+        ```json
+        {
+            "error": "invalid data"
+        }
+        ```  
 
-### Get Lab Order
-- **Endpoint**: `GET /lab-orders/{id}`
-- **Response**:
-```json
-{
-    "id": "101",
-    "patient_id": "1",
-    "status": "pending",
-    "tests": [{ "test_code": "CPT123", "icd_code": "ICD10A" }]
-}
-```
+### HIPAA Compliance Notes
+- Patient data should be encrypted; access must be restricted.
 
-### Update Lab Order
-- **Endpoint**: `PUT /lab-orders/{id}`
-- **Request Body**:
-```json
-{
-    "status": "completed"
-}
-```
-- **Response**:
-```json
-{
-    "message": "Lab order updated successfully."
-}
-```
+---
 
-### Delete Lab Order
-- **Endpoint**: `DELETE /lab-orders/{id}`
-- **Response**:
-```json
-{
-    "message": "Lab order deleted successfully."
-}
-```
+## Ordering Physician Management
 
-## Ordering Physicians
+### Endpoints
+- **GET /api/physicians**  
+- **POST /api/physicians**  
+- **PUT /api/physicians/{id}**  
+- **DELETE /api/physicians/{id}**  
 
-### Create Physician
-- **Endpoint**: `POST /physicians`
-- **Request Body**:
-```json
-{
-    "name": "Dr. Smith",
-    "specialty": "Cardiology"
-}
-```
-- **Response**:
-```json
-{
-    "id": "10",
-    "message": "Physician created successfully."
-}
-```
+---
 
-### Get Physician
-- **Endpoint**: `GET /physicians/{id}`
-- **Response**:
-```json
-{
-    "id": "10",
-    "name": "Dr. Smith",
-    "specialty": "Cardiology"
-}
-```
+## Audit Logs Retrieval
 
-### Update Physician
-- **Endpoint**: `PUT /physicians/{id}`
-- **Request Body**:
-```json
-{
-    "specialty": "Internal Medicine"
-}
-```
-- **Response**:
-```json
-{
-    "message": "Physician updated successfully."
-}
-```
+### Endpoints
+- **GET /api/audit-logs**  
+- **GET /api/audit-logs/{id}**  
 
-### Delete Physician
-- **Endpoint**: `DELETE /physicians/{id}`
-- **Response**:
-```json
-{
-    "message": "Physician deleted successfully."
-}
-```
+### HIPAA Compliance Notes
+- Audit logs must be immutable and securely stored. Only authorized personnel should have access.
 
-## Authentication
-
-### User Login
-- **Endpoint**: `POST /login`
-- **Request Body**:
-```json
-{
-    "username": "user",
-    "password": "pass"
-}
-```
-- **Response**:
-```json
-{
-    "token": "xyz.abc.def",
-    "message": "Login successful."
-}
-```
-
-### User Logout
-- **Endpoint**: `POST /logout`
-- **Response**:
-```json
-{
-    "message": "Logout successful."
-}
-```
-
-### Token Refresh
-- **Endpoint**: `POST /refresh`
-- **Response**:
-```json
-{
-    "token": "abc.def.ghi",
-    "message": "Token refreshed successfully."
-}
-```
-
-## Audit Logging
-
-### Log Action
-- **Endpoint**: `POST /audit`
-- **Request Body**:
-```json
-{
-    "action": "create",
-    "entity": "patient",
-    "entity_id": "1"
-}
-```
-- **Response**:
-```json
-{
-    "message": "Action logged successfully."
-}
-```
-
-### Retrieve Logs
-- **Endpoint**: `GET /audit`
-- **Response**:
-```json
-[
-    {
-        "id": "1",
-        "action": "create",
-        "entity": "patient",
-        "entity_id": "1",
-        "timestamp": "2026-01-18T08:13:13Z"
-    }
-]
-```
+---
